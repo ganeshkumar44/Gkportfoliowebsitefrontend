@@ -277,7 +277,7 @@ function Header() {
         {/* Logo */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="font-display text-xl md:text-2xl font-bold text-foreground tracking-tight hover:opacity-75 transition-opacity duration-200"
+          className="font-display text-xl md:text-[2rem] font-bold text-foreground tracking-tight hover:opacity-75 transition-opacity duration-200"
           aria-label="Scroll to top"
         >
           <span className="text-amber-400">G</span>anesh

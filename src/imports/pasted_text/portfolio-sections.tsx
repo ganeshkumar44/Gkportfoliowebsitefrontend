@@ -1,4 +1,4 @@
-Continue the same premium modern Ganesh thakur portfolio website design and architecture from previous sections. Maintain consistent UI/UX, animations, typography, spacing, and component structure. Use React + TypeScript + Tailwind CSS with reusable components and semantic HTML structure.
+Continue the same premium modern single-page portfolio website design and architecture from previous sections. Maintain consistent UI/UX, animations, typography, spacing, and component structure. Use React + TypeScript + Tailwind CSS with reusable components and semantic HTML structure.
 
 Important:
 

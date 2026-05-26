@@ -483,7 +483,7 @@ function HeroSection() {
 
       {/* Hero content — bottom-center */}
       <div
-        className={`relative z-10 text-center px-6 pb-28 md:pb-36 w-full max-w-5xl mx-auto transition-all duration-1000 ease-out ${
+        className={`relative z-10 text-center px-6 pb-[150px] w-full max-w-5xl mx-auto transition-all duration-1000 ease-out ${
           mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >

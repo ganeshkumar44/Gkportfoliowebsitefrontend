@@ -12,8 +12,8 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { label: "About Me", href: "#about" },
-  { label: "Service", href: "#service" },
   { label: "Work", href: "#work" },
+  { label: "Service", href: "#service" },
   { label: "Contact Us", href: "#contact" },
 ];
 
@@ -586,9 +586,9 @@ function ServicesSection() {
 }
 
 function WorkSection() {
-  const { ref: titleRef, visible: titleVisible } = useReveal(0.2);
-  const { ref: contentRef, visible: contentVisible } = useReveal(0.2);
-  const { ref: imageRef, visible: imageVisible } = useReveal(0.15);
+  const { ref: headRef, visible: headVisible } = useReveal(0.2);
+  const { ref: bodyRef, visible: bodyVisible } = useReveal(0.2);
+  const { ref: statsRef, visible: statsVisible } = useReveal(0.15);
 
   return (
     <section
@@ -600,47 +600,31 @@ function WorkSection() {
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-amber-400/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-28 items-start">
 
-          {/* Left — Showcase Image */}
-          <div
-            ref={imageRef}
-            className={`relative group transition-all duration-1000 ${
-              imageVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
-            }`}
-          >
-            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjB3ZWIlMjBkZXZlbG9wbWVudCUyMHdvcmtzcGFjZSUyMHNldHVwJTIwZGVza3xlbnwxfHx8fDE3Nzk0MjkzMTh8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Modern web development workspace with code on screen"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              {/* Glow overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-amber-400/20 via-transparent to-transparent opacity-60" />
-            </div>
-            {/* Shadow effect */}
-            <div className="absolute inset-0 rounded-3xl shadow-[0_25px_60px_-15px_rgba(212,163,88,0.25)] group-hover:shadow-[0_30px_70px_-15px_rgba(212,163,88,0.35)] transition-shadow duration-700" />
-          </div>
-
-          {/* Right — Content */}
+          {/* Left column — headline + body + stats */}
           <div>
-            <div ref={titleRef}>
+            <p className="font-mono text-xs font-semibold text-amber-400 tracking-[0.3em] uppercase mb-6">
+              Skill Set
+            </p>
+
+            <div ref={headRef}>
               <h2
-                className={`font-display text-[clamp(2.5rem,5vw,4.5rem)] font-bold text-foreground leading-[1.08] tracking-tight mb-6 transition-all duration-1000 ${
-                  titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                className={`font-display text-[clamp(2.8rem,6vw,5.5rem)] font-bold text-foreground leading-[1.05] tracking-tight transition-all duration-1000 ${
+                  headVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
               >
                 Building Digital Experiences That{" "}
-                <span className="text-amber-400">Actually Matter</span>
+                <em className="text-amber-400 not-italic">Actually Matter</em>
               </h2>
             </div>
 
-            <div ref={contentRef}>
+            <div ref={bodyRef}>
               <p
-                className={`font-body text-base md:text-[1.05rem] text-muted-foreground leading-[1.75] mb-10 transition-all duration-1000 ${
-                  contentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                className={`font-body mt-8 text-base md:text-[1.05rem] text-muted-foreground leading-[1.75] max-w-lg transition-all duration-1000 ${
+                  bodyVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
-                style={{ transitionDelay: "100ms" }}
+                style={{ transitionDelay: "150ms" }}
               >
                 I specialize in building scalable, high-performance web applications that solve
                 real-world problems. From pixel-perfect responsive UIs to robust backend
@@ -648,45 +632,71 @@ function WorkSection() {
                 driven by modern technologies, AI-powered workflows, and a relentless focus on
                 performance optimization and user experience.
               </p>
+            </div>
 
-              {/* Professional list */}
-              <ul
-                className={`space-y-3 mb-10 transition-all duration-1000 ${
-                  contentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-                style={{ transitionDelay: "200ms" }}
-              >
-                {WORK_HIGHLIGHTS.map((item, i) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-3 group"
-                    style={{ transitionDelay: `${250 + i * 50}ms` }}
-                  >
-                    <div className="mt-1 w-5 h-5 rounded-full bg-amber-400/10 flex items-center justify-center shrink-0">
-                      <Check size={12} className="text-amber-400" />
-                    </div>
-                    <span className="text-sm font-medium text-foreground/90 group-hover:text-amber-400 transition-colors duration-200">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+            {/* Divider line */}
+            <div
+              className={`mt-12 w-14 h-px bg-amber-400/70 transition-all duration-1000 ${
+                bodyVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+              } origin-left`}
+              style={{ transitionDelay: "300ms" }}
+            />
 
-              {/* Skill tags */}
-              <div
-                className={`flex flex-wrap gap-2 transition-all duration-1000 ${
-                  contentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-                style={{ transitionDelay: "450ms" }}
-              >
-                {WORK_SKILLS.map((skill, i) => (
-                  <span
-                    key={skill}
-                    className="inline-flex items-center gap-1.5 border border-border px-4 py-1.5 rounded-full text-xs font-medium text-muted-foreground hover:text-foreground hover:border-amber-400/60 hover:bg-amber-400/5 transition-all duration-300 cursor-default"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-amber-400" />
-                    {skill}
+            {/* Stats */}
+            <div ref={statsRef} className="mt-8 flex gap-10 md:gap-14">
+              {STATS.map((s, i) => (
+                <div
+                  key={s.label}
+                  className={`transition-all duration-700 ${
+                    statsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                  }`}
+                  style={{ transitionDelay: `${400 + i * 100}ms` }}
+                >
+                  <div className="font-display text-3xl md:text-4xl font-bold text-foreground">
+                    {s.value}
+                  </div>
+                  <div className="font-body text-xs text-muted-foreground tracking-[0.2em] uppercase mt-1">
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right column — work highlights list + tech stack */}
+          <div>
+            <p className="font-mono text-xs font-semibold text-muted-foreground tracking-[0.25em] uppercase mb-7">
+              What I Build
+            </p>
+
+            {/* Work highlights list */}
+            <div>
+              {WORK_HIGHLIGHTS.map((item, i) => (
+                <div
+                  key={item}
+                  className={`flex items-start gap-5 py-4 border-b border-border group hover:border-amber-400/30 transition-all duration-500 ${
+                    bodyVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"
+                  }`}
+                  style={{ transitionDelay: `${i * 80}ms` }}
+                >
+                  <span className="text-xs text-amber-400 font-mono font-semibold mt-0.5 w-8 shrink-0 tabular-nums">
+                    0{i + 1}
                   </span>
+                  <div className="text-sm font-semibold text-foreground group-hover:text-amber-400 transition-colors duration-200">
+                    {item}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Tech Stack */}
+            <div className="mt-12">
+              <p className="font-mono text-xs font-semibold text-muted-foreground tracking-[0.25em] uppercase mb-6">
+                Tech Stack
+              </p>
+              <div className="flex flex-wrap gap-2.5">
+                {WORK_SKILLS.map((skill, i) => (
+                  <SkillTag key={skill} label={skill} delay={i * 70} />
                 ))}
               </div>
             </div>
@@ -1051,8 +1061,8 @@ export default function App() {
         <HeroSection />
         <AboutSection />
         <TravelVideoSection />
-        <ServicesSection />
         <WorkSection />
+        <ServicesSection />
         <ContactSection />
       </main>
       <Footer />

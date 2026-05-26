@@ -104,20 +104,25 @@ function useScrolled(threshold = 24) {
   return scrolled;
 }
 
-function useTypingEffect(text: string, speed = 75) {
+function useTypingEffect(text: string, speed = 75, repeatInterval = 15000) {
   const [displayed, setDisplayed] = useState("");
   const [done, setDone] = useState(false);
 
   useEffect(() => {
     if (done || displayed.length >= text.length) {
       setDone(true);
-      return;
+      // Reset after repeatInterval milliseconds
+      const resetTimer = setTimeout(() => {
+        setDisplayed("");
+        setDone(false);
+      }, repeatInterval);
+      return () => clearTimeout(resetTimer);
     }
     const timer = setTimeout(() => {
       setDisplayed(text.slice(0, displayed.length + 1));
     }, speed);
     return () => clearTimeout(timer);
-  }, [displayed, text, speed, done]);
+  }, [displayed, text, speed, done, repeatInterval]);
 
   return { displayed, done };
 }

@@ -781,6 +781,132 @@ function AboutSection() {
   );
 }
 
+function TravelVideoSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+
+      const rect = sectionRef.current.getBoundingClientRect();
+      const sectionHeight = sectionRef.current.offsetHeight;
+      const viewportHeight = window.innerHeight;
+
+      // Calculate scroll progress through the section (0 to 1)
+      const progress = Math.max(0, Math.min(1, -rect.top / (sectionHeight - viewportHeight)));
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial calculation
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Define text overlays with their appearance ranges (0-1 progress)
+  const overlays = [
+    { text: "Exploring Beyond Screens", start: 0.1, end: 0.3 },
+    { text: "Inspired By Real Experiences", start: 0.4, end: 0.6 },
+    { text: "Stories From Roads & Ideas", start: 0.7, end: 0.9 },
+  ];
+
+  // Calculate opacity for each overlay based on scroll progress
+  const getOverlayOpacity = (start: number, end: number) => {
+    const fadeIn = 0.05; // 5% of section for fade in
+    const fadeOut = 0.05; // 5% of section for fade out
+
+    if (scrollProgress < start) return 0;
+    if (scrollProgress < start + fadeIn) {
+      return (scrollProgress - start) / fadeIn;
+    }
+    if (scrollProgress < end - fadeOut) return 1;
+    if (scrollProgress < end) {
+      return (end - scrollProgress) / fadeOut;
+    }
+    return 0;
+  };
+
+  // Calculate video scale based on scroll progress (subtle zoom effect)
+  const videoScale = 1 + scrollProgress * 0.1; // Scale from 1 to 1.1
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative w-full overflow-hidden"
+      style={{ height: "600px" }}
+      aria-label="Travel and experiences"
+    >
+      {/* Sticky video container */}
+      <div className="sticky top-0 left-0 w-full h-screen overflow-hidden">
+        {/* Video background */}
+        <div
+          className="absolute inset-0 transition-transform duration-300 ease-out"
+          style={{ transform: `scale(${videoScale})` }}
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+            poster="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&h=1080&fit=crop&auto=format"
+            loading="lazy"
+          >
+            <source
+              src="https://cdn.pixabay.com/video/2022/11/09/138794-769997073_large.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/40 dark:bg-black/50" />
+
+        {/* Cinematic vignette */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+
+        {/* Grain texture */}
+        <div
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundSize: "300px 300px",
+          }}
+        />
+
+        {/* Text overlays */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          {overlays.map((overlay, i) => {
+            const opacity = getOverlayOpacity(overlay.start, overlay.end);
+            return (
+              <div
+                key={i}
+                className="absolute inset-0 flex items-center justify-center px-6"
+                style={{
+                  opacity,
+                  transform: `translateY(${(1 - opacity) * 20}px)`,
+                  transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
+                }}
+              >
+                <h3 className="font-display text-[clamp(2.5rem,6vw,5rem)] font-bold text-white leading-none tracking-tight text-center max-w-4xl">
+                  {overlay.text}
+                </h3>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Ambient amber glow at bottom */}
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-64 bg-amber-500/20 blur-[100px] rounded-full pointer-events-none"
+          style={{ opacity: 0.3 + scrollProgress * 0.4 }}
+        />
+      </div>
+    </section>
+  );
+}
+
 function ContactSection() {
   const { ref: titleRef, visible: titleVisible } = useReveal(0.2);
   const { ref: contentRef, visible: contentVisible } = useReveal(0.2);
@@ -924,6 +1050,7 @@ export default function App() {
       <main>
         <HeroSection />
         <AboutSection />
+        <TravelVideoSection />
         <ServicesSection />
         <WorkSection />
         <ContactSection />

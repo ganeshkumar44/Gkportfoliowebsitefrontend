@@ -284,17 +284,15 @@ function Header() {
           <span className="text-amber-400">.</span>
         </button>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8" role="list">
-          {NAV_ITEMS.map((item) => (
-            <div key={item.label} role="listitem">
-              <NavLink item={item} onClick={closeMenu} />
-            </div>
-          ))}
-        </div>
-
-        {/* Desktop right controls */}
-        <div className="hidden md:flex items-center gap-4">
+        {/* Desktop nav + language toggle grouped on right */}
+        <div className="hidden md:flex items-center gap-8">
+          <nav className="flex items-center gap-8" role="list">
+            {NAV_ITEMS.map((item) => (
+              <div key={item.label} role="listitem">
+                <NavLink item={item} onClick={closeMenu} />
+              </div>
+            ))}
+          </nav>
           <LangToggle />
         </div>
 

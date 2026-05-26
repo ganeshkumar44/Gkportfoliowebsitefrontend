@@ -833,7 +833,8 @@ function TravelVideoSection() {
 
       // Calculate scroll progress through the section (0 to 1)
       const progress = Math.max(0, Math.min(1, -rect.top / (sectionHeight - viewportHeight)));
-      setScrollProgress(progress);
+      // Ensure progress is a valid number
+      setScrollProgress(isNaN(progress) ? 0 : progress);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -852,20 +853,24 @@ function TravelVideoSection() {
   const getOverlayOpacity = (start: number, end: number) => {
     const fadeIn = 0.05; // 5% of section for fade in
     const fadeOut = 0.05; // 5% of section for fade out
+    const progress = scrollProgress || 0; // Ensure valid number
 
-    if (scrollProgress < start) return 0;
-    if (scrollProgress < start + fadeIn) {
-      return (scrollProgress - start) / fadeIn;
+    if (progress < start) return 0;
+    if (progress < start + fadeIn) {
+      const opacity = (progress - start) / fadeIn;
+      return isNaN(opacity) ? 0 : opacity;
     }
-    if (scrollProgress < end - fadeOut) return 1;
-    if (scrollProgress < end) {
-      return (end - scrollProgress) / fadeOut;
+    if (progress < end - fadeOut) return 1;
+    if (progress < end) {
+      const opacity = (end - progress) / fadeOut;
+      return isNaN(opacity) ? 0 : opacity;
     }
     return 0;
   };
 
   // Calculate video scale based on scroll progress (subtle zoom effect)
-  const videoScale = 1 + scrollProgress * 0.1; // Scale from 1 to 1.1
+  const safeProgress = scrollProgress || 0;
+  const videoScale = 1 + safeProgress * 0.1; // Scale from 1 to 1.1
 
   return (
     <section
@@ -879,7 +884,7 @@ function TravelVideoSection() {
         {/* Video background */}
         <div
           className="absolute inset-0 transition-transform duration-300 ease-out"
-          style={{ transform: `scale(${videoScale})` }}
+          style={{ transform: `scale(${isNaN(videoScale) ? 1 : videoScale})` }}
         >
           <video
             autoPlay
@@ -917,13 +922,14 @@ function TravelVideoSection() {
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           {overlays.map((overlay, i) => {
             const opacity = getOverlayOpacity(overlay.start, overlay.end);
+            const translateY = isNaN(opacity) ? 0 : (1 - opacity) * 20;
             return (
               <div
                 key={i}
                 className="absolute inset-0 flex items-center justify-center px-6"
                 style={{
-                  opacity,
-                  transform: `translateY(${(1 - opacity) * 20}px)`,
+                  opacity: isNaN(opacity) ? 0 : opacity,
+                  transform: `translateY(${translateY}px)`,
                   transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
                 }}
               >
@@ -938,7 +944,7 @@ function TravelVideoSection() {
         {/* Ambient amber glow at bottom */}
         <div
           className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-64 bg-amber-500/20 blur-[100px] rounded-full pointer-events-none"
-          style={{ opacity: 0.3 + scrollProgress * 0.4 }}
+          style={{ opacity: 0.3 + (scrollProgress || 0) * 0.4 }}
         />
       </div>
     </section>

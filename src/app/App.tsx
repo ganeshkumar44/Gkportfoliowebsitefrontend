@@ -1027,30 +1027,14 @@ function Footer() {
     <footer className="relative w-full border-t border-border bg-background" aria-label="Footer">
       <div className="max-w-7xl mx-auto px-6 md:px-10 py-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          {/* Left */}
-          <div className="flex items-center gap-6">
-            <a
-              href="#"
-              className="hover:text-foreground transition-colors duration-200"
-            >
-              Cookies
-            </a>
-            <a
-              href="#"
-              className="hover:text-foreground transition-colors duration-200"
-            >
-              Privacy
-            </a>
-          </div>
+          {/* Left — copyright */}
+          <span className="font-mono text-xs">&copy;2026 Ganesh kumar.</span>
 
-          {/* Right */}
-          <div className="font-mono text-xs">
-            <a
-              href="mailto:ganeshkr.in90@gmail.com"
-              className="hover:text-amber-400 transition-colors duration-200"
-            >
-              ganeshkr.in90@gmail.com
-            </a>
+          {/* Right — nav links */}
+          <div className="flex items-center gap-6">
+            <a href="#" className="hover:text-foreground transition-colors duration-200">Privacy</a>
+            <a href="#" className="hover:text-foreground transition-colors duration-200">Cookies</a>
+            <a href="#contact" className="hover:text-foreground transition-colors duration-200">Contact</a>
           </div>
         </div>
       </div>

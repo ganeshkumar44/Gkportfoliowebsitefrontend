@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Sun, Moon, Menu, X, ChevronDown, Check, Instagram, Youtube, Linkedin, Mail } from "lucide-react";
+import { Sun, Moon, Menu, X, ChevronDown, Check, Instagram, Youtube, Linkedin, Mail, Code2, Palette, Server, Sparkles } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -63,6 +63,33 @@ const SOCIAL_LINKS = [
   { icon: Youtube, label: "YouTube", href: "https://youtube.com" },
   { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
   { icon: Mail, label: "Email", href: "mailto:ganeshkr.in90@gmail.com" },
+];
+
+const SERVICE_CARDS = [
+  {
+    icon: Code2,
+    title: "Web Application Development",
+    description: "Building scalable, fast, and modern web applications focused on real-world usability and performance.",
+    labels: ["Full Stack", "Scalable Systems", "Modern Architecture"],
+  },
+  {
+    icon: Palette,
+    title: "Frontend Development & UI Engineering",
+    description: "Creating pixel-perfect responsive interfaces with smooth interactions and premium user experiences.",
+    labels: ["ReactJS", "Responsive UI", "UX Focused"],
+  },
+  {
+    icon: Server,
+    title: "Backend Development & API Integration",
+    description: "Developing secure backend systems, APIs, authentication flows, and optimized server-side architecture.",
+    labels: ["NodeJS", "REST APIs", "Database Systems"],
+  },
+  {
+    icon: Sparkles,
+    title: "AI & Automation Solutions",
+    description: "Integrating AI-powered workflows and smart automation systems to improve productivity and digital experiences.",
+    labels: ["AI Workflows", "Automation", "Smart Systems"],
+  },
 ];
 
 // ─── Hooks ────────────────────────────────────────────────────────────────────
@@ -251,6 +278,58 @@ function SocialButton({
       <Icon size={20} className="text-muted-foreground group-hover:text-amber-400 transition-colors duration-200" />
       <div className="absolute inset-0 rounded-2xl bg-amber-400/0 group-hover:bg-amber-400/5 transition-colors duration-300" />
     </a>
+  );
+}
+
+function ServiceCard({
+  card,
+  delay = 0,
+}: {
+  card: (typeof SERVICE_CARDS)[number];
+  delay?: number;
+}) {
+  const { ref, visible } = useReveal(0.1);
+  const Icon = card.icon;
+
+  return (
+    <div
+      ref={ref}
+      className={`group relative p-8 rounded-2xl bg-card/40 backdrop-blur-sm border border-border hover:border-amber-400/60 hover:bg-amber-400/5 transition-all duration-500 hover:scale-[1.02] ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      }`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {/* Icon */}
+      <div className="w-12 h-12 rounded-xl bg-amber-400/10 flex items-center justify-center mb-5 group-hover:bg-amber-400/20 transition-colors duration-300">
+        <Icon size={24} className="text-amber-400" />
+      </div>
+
+      {/* Title */}
+      <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-3 group-hover:text-amber-400 transition-colors duration-300">
+        {card.title}
+      </h3>
+
+      {/* Description */}
+      <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+        {card.description}
+      </p>
+
+      {/* Labels */}
+      <div className="flex flex-wrap gap-2">
+        {card.labels.map((label) => (
+          <span
+            key={label}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-secondary/50 text-muted-foreground border border-border/50"
+          >
+            <span className="w-1 h-1 rounded-full bg-amber-400" />
+            {label}
+          </span>
+        ))}
+      </div>
+
+      {/* Hover glow effect */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-400/0 via-amber-400/0 to-amber-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+    </div>
   );
 }
 
@@ -475,9 +554,9 @@ function HeroSection() {
 }
 
 function ServicesSection() {
-  const { ref: headRef, visible: headVisible } = useReveal(0.2);
-  const { ref: bodyRef, visible: bodyVisible } = useReveal(0.2);
-  const { ref: statsRef, visible: statsVisible } = useReveal(0.15);
+  const { ref: titleRef, visible: titleVisible } = useReveal(0.2);
+  const { ref: descRef, visible: descVisible } = useReveal(0.2);
+  const { ref: cardsRef, visible: cardsVisible } = useReveal(0.15);
 
   return (
     <section
@@ -489,95 +568,44 @@ function ServicesSection() {
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-amber-400/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-28 items-start">
+        {/* Top area — heading + description */}
+        <div className="max-w-3xl mx-auto text-center mb-16 md:mb-20">
+          <p className="font-mono text-xs font-semibold text-muted-foreground tracking-[0.3em] uppercase mb-6">
+            What I Can Help You Build
+          </p>
 
-          {/* Left column — headline + body + stats */}
-          <div>
-            <p className="font-mono text-xs font-semibold text-amber-400 tracking-[0.3em] uppercase mb-6">
-              What I Do
-            </p>
-
-            <div ref={headRef}>
-              <h2
-                className={`font-display text-[clamp(2.8rem,6vw,5.5rem)] font-bold text-foreground leading-[1.05] tracking-tight transition-all duration-1000 ${
-                  headVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-                }`}
-              >
-                Here&apos;s what I{" "}
-                <em className="text-amber-400 not-italic">actually</em>
-                {" "}do
-              </h2>
-            </div>
-
-            <div ref={bodyRef}>
-              <p
-                className={`font-body mt-8 text-base md:text-[1.05rem] text-muted-foreground leading-[1.75] max-w-lg transition-all duration-1000 ${
-                  bodyVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-                style={{ transitionDelay: "150ms" }}
-              >
-                I architect and ship scalable full-stack applications — from meticulously
-                crafted interfaces to resilient cloud-native backends. My workflow is{" "}
-                <span className="text-foreground font-medium">AI-enhanced</span>, my
-                designs are user-obsessed, and my code is built to last. I bridge engineering
-                precision with product thinking using React, Node.js, Python, and modern
-                distributed infrastructure.
-              </p>
-            </div>
-
-            {/* Divider line */}
-            <div
-              className={`mt-12 w-14 h-px bg-amber-400/70 transition-all duration-1000 ${
-                bodyVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
-              } origin-left`}
-              style={{ transitionDelay: "300ms" }}
-            />
-
-            {/* Stats */}
-            <div ref={statsRef} className="mt-8 flex gap-10 md:gap-14">
-              {STATS.map((s, i) => (
-                <div
-                  key={s.label}
-                  className={`transition-all duration-700 ${
-                    statsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-                  }`}
-                  style={{ transitionDelay: `${400 + i * 100}ms` }}
-                >
-                  <div className="font-display text-3xl md:text-4xl font-bold text-foreground">
-                    {s.value}
-                  </div>
-                  <div className="font-body text-xs text-muted-foreground tracking-[0.2em] uppercase mt-1">
-                    {s.label}
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div ref={titleRef}>
+            <h2
+              className={`font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-foreground leading-[1.08] tracking-tight mb-6 transition-all duration-1000 ${
+                titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
+            >
+              Creating Modern Digital Products With{" "}
+              <span className="text-amber-400">Performance, Design & Intelligence</span>
+            </h2>
           </div>
 
-          {/* Right column — skill tags + expertise list */}
-          <div>
-            <p className="font-mono text-xs font-semibold text-muted-foreground tracking-[0.25em] uppercase mb-7">
-              Core Competencies
+          <div ref={descRef}>
+            <p
+              className={`font-body text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto transition-all duration-1000 ${
+                descVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{ transitionDelay: "150ms" }}
+            >
+              I build scalable digital products that combine thoughtful design with robust
+              engineering. Every project is powered by AI-enhanced workflows, performance-focused
+              development, and a deep commitment to creating user-centered experiences that solve
+              real problems.
             </p>
+          </div>
+        </div>
 
-            {/* Skill tags */}
-            <div className="flex flex-wrap gap-2.5">
-              {SKILL_TAGS.map((tag, i) => (
-                <SkillTag key={tag} label={tag} delay={i * 70} />
-              ))}
-            </div>
-
-            {/* Expertise list */}
-            <div className="mt-12">
-              <p className="font-mono text-xs font-semibold text-muted-foreground tracking-[0.25em] uppercase mb-6">
-                Tech Stack
-              </p>
-              <div>
-                {EXPERTISE.map((item, i) => (
-                  <ExpertiseRow key={item.index} item={item} delay={i * 80} />
-                ))}
-              </div>
-            </div>
+        {/* Service cards grid */}
+        <div ref={cardsRef}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {SERVICE_CARDS.map((card, i) => (
+              <ServiceCard key={card.title} card={card} delay={i * 100} />
+            ))}
           </div>
         </div>
       </div>

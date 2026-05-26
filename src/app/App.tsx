@@ -512,8 +512,8 @@ function HeroSection() {
 
         {/* Role */}
         <p className={`font-body text-sm md:text-base font-medium tracking-[0.3em] uppercase mb-2 ${isDark ? "text-white/50" : "text-[#444444]"}`}>
-          FullStack Developer{" "}
-          <span className="text-amber-400 font-bold">&amp;</span> AI
+          FullStack AI Enhanced Developer - Travel{" "}
+          <span className="text-amber-400 font-bold">&amp;</span> Creativity
         </p>
 
         {/* Location */}

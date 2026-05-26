@@ -759,6 +759,10 @@ function AboutSection() {
 
           {/* Left — Content */}
           <div className="order-2 lg:order-1">
+            <p className="font-mono text-xs font-semibold text-amber-400 tracking-[0.3em] uppercase mb-6">
+              Technology & Experiences
+            </p>
+
             <div ref={titleRef}>
               <h2
                 className={`font-display text-[clamp(2.5rem,5vw,4.5rem)] font-bold text-foreground leading-[1.08] tracking-tight mb-6 transition-all duration-1000 ${

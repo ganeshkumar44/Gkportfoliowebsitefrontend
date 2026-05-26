@@ -11,9 +11,9 @@ interface NavItem {
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const NAV_ITEMS: NavItem[] = [
+  { label: "About Me", href: "#about" },
   { label: "Service", href: "#service" },
   { label: "Work", href: "#work" },
-  { label: "About Me", href: "#about" },
   { label: "Contact Us", href: "#contact" },
 ];
 
@@ -722,8 +722,8 @@ function AboutSection() {
                   titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
               >
-                More Than Just{" "}
-                <span className="text-amber-400">Another Developer</span>
+                Crafting Digital Experiences{" "}
+                <span className="text-amber-400">Inspired by Real Life</span>
               </h2>
             </div>
 
@@ -734,17 +734,24 @@ function AboutSection() {
                 }`}
                 style={{ transitionDelay: "100ms" }}
               >
-                I'm <span className="text-foreground font-semibold">Ganesh Thakur</span>, a
-                Computer Science graduate and Full Stack Developer with a passion for creating
-                digital products that make an impact. My journey in tech is fueled by curiosity —
-                whether it's exploring the latest in AI, diving into game development, or
-                discovering new cities while traveling.
+                I'm <span className="text-foreground font-semibold">Ganesh</span> — a Full Stack
+                Developer who loves creating modern digital experiences, but honestly, my world is
+                not limited to just coding.
                 <br />
                 <br />
-                I believe the best solutions come from blending design intuition with engineering
-                rigor. When I'm not writing code or architecting systems, you'll find me gaming,
-                exploring creative ideas, or dreaming up the next big thing. I'm a problem solver
-                at heart, and I love turning complex challenges into elegant, scalable solutions.
+                I enjoy traveling, exploring new places, gaming, and creating content around the
+                things I experience and enjoy. Some of my best ideas actually come while traveling,
+                walking through new streets, meeting new people, or simply spending time away from
+                the screen.
+                <br />
+                <br />
+                For me, life is all about balance between technology and experiences. I love
+                building things online, but I equally enjoy living moments offline too.
+                <br />
+                <br />
+                Whether it's creating websites, exploring a new destination, playing games, or
+                working on creative ideas late at night — I'm always driven by curiosity and the
+                excitement of learning something new.
               </p>
             </div>
           </div>
@@ -916,9 +923,9 @@ export default function App() {
       <Header />
       <main>
         <HeroSection />
+        <AboutSection />
         <ServicesSection />
         <WorkSection />
-        <AboutSection />
         <ContactSection />
       </main>
       <Footer />

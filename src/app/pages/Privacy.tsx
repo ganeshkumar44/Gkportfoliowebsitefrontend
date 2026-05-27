@@ -8,7 +8,7 @@ export function Privacy() {
             Privacy Policy
           </h1>
           <button
-            onClick={() => window.history.back()}
+            onClick={() => { window.scrollTo(0, 0); window.history.back(); }}
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card/40 hover:bg-card/60 border border-border text-foreground transition-all duration-200 hover:border-amber-400/50 group shrink-0 mt-2"
             aria-label="Go back"
           >

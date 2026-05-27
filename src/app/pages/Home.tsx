@@ -20,8 +20,8 @@ const EXPERTISE = [
 ];
 
 const STATS = [
-  { value: "4+", label: "Years Exp" },
-  { value: "30+", label: "Projects" },
+  { value: "12+", label: "Years Exp" },
+  { value: "300+", label: "Projects" },
   { value: "15+", label: "Clients" },
 ];
 

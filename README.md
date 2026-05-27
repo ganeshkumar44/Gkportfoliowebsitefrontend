@@ -1,7 +1,7 @@
 
-  # Single-page portfolio website
+  # Ganesh Kumar Thakur
 
-  This is a code bundle for Single-page portfolio website. The original project is available at https://www.figma.com/design/AUbyLlEw5YQp6pga6dxkQp/Single-page-portfolio-website.
+  This is a code bundle for Ganesh Kumar Thakur. The original project is available at https://www.figma.com/design/AUbyLlEw5YQp6pga6dxkQp/Ganesh-Kumar-Thakur.
 
   ## Running the code
 

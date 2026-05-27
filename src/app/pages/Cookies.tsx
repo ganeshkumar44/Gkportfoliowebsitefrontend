@@ -1,11 +1,34 @@
 export function Cookies() {
+
   return (
     <div className="min-h-screen pt-24 md:pt-32 pb-16">
       <div className="max-w-4xl mx-auto px-6 md:px-10">
         {/* Page title */}
-        <h1 className="font-display text-[clamp(2.5rem,6vw,4rem)] font-bold text-foreground leading-tight tracking-tight mb-4">
-          Cookies Policy
-        </h1>
+        <div className="flex items-start justify-between mb-4">
+          <h1 className="font-display text-[clamp(2.5rem,6vw,4rem)] font-bold text-foreground leading-tight tracking-tight">
+            Cookies Policy
+          </h1>
+          <button
+            onClick={() => window.history.back()}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card/40 hover:bg-card/60 border border-border text-foreground transition-all duration-200 hover:border-amber-400/50 group shrink-0 mt-2"
+            aria-label="Go back"
+          >
+            <svg
+              className="w-5 h-5 transition-transform group-hover:-translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
+            </svg>
+            <span className="hidden sm:inline">Back</span>
+          </button>
+        </div>
 
         {/* Main content */}
         <div className="prose prose-lg dark:prose-invert max-w-none">

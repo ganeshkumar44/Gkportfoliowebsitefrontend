@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown, Check, Instagram, Youtube, Linkedin, Mail, Code2, Palette, Server, Sparkles } from "lucide-react";
+import aboutPhoto from "../../imports/ChatGPT_Image_May_29__2026__01_21_53_AM.png";
+import heroBg from "../../imports/IMG_4879.JPG";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -286,16 +289,8 @@ function HeroSection() {
     >
       <div className={isDark ? "absolute inset-0 bg-zinc-950" : "absolute inset-0 bg-zinc-100"}>
         <img
-          src={
-            isDark
-              ? "https://images.unsplash.com/photo-1763128516808-785e80c1dd68?w=1920&h=1080&fit=crop&auto=format"
-              : "https://images.unsplash.com/photo-1644581204918-2b8903afcc8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920"
-          }
-          alt={
-            isDark
-              ? "Developer working at multiple monitors in a dark cinematic environment"
-              : "Professional portrait with soft lighting and minimal background"
-          }
+          src={heroBg}
+          alt="Hero background"
           className="w-full h-full object-cover object-center opacity-35 scale-105"
           loading="eager"
         />
@@ -455,8 +450,8 @@ function AboutSection() {
             }`}
           >
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1558730234-d8b2281b0d00?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBkZXZlbG9wZXIlMjBwb3J0cmFpdCUyMHN0dWRpbyUyMGxpZ2h0aW5nfGVufDF8fHx8MTc3OTQyOTMxOHww&ixlib=rb-4.1.0&q=80&w=1080"
+              <ImageWithFallback
+                src={aboutPhoto}
                 alt="Portrait of Ganesh Thakur, Full Stack Developer"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />

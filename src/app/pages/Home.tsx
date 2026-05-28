@@ -303,8 +303,8 @@ function HeroSection() {
         </>
       ) : (
         <>
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-white/15" />
-          <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-transparent to-white/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-white/[0.06]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/25 via-transparent to-white/25" />
         </>
       )}
 

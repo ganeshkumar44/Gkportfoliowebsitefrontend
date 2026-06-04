@@ -16,19 +16,6 @@ export function Footer() {
             <Link to="/cookies" className="hover:text-foreground transition-colors duration-200">
               Cookies
             </Link>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                if (window.location.pathname === "/") {
-                  e.preventDefault();
-                  const el = document.querySelector("#contact");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              className="hover:text-foreground transition-colors duration-200"
-            >
-              Contact
-            </a>
           </div>
         </div>
       </div>

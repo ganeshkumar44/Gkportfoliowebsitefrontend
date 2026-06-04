@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 
 interface NavItem {
   label: string;
@@ -38,14 +38,30 @@ function NavLink({
   onClick: () => void;
   mobile?: boolean;
 }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    onClick();
+
+    // If we're on the homepage, just scroll
+    if (location.pathname === "/") {
+      smoothScrollTo(item.href);
+    } else {
+      // Navigate to homepage, then scroll after navigation
+      navigate("/");
+      // Use setTimeout to ensure navigation completes before scrolling
+      setTimeout(() => {
+        smoothScrollTo(item.href);
+      }, 100);
+    }
+  };
+
   return (
     <a
       href={item.href}
-      onClick={(e) => {
-        e.preventDefault();
-        smoothScrollTo(item.href);
-        onClick();
-      }}
+      onClick={handleClick}
       className={
         mobile
           ? "block text-base font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 py-1"

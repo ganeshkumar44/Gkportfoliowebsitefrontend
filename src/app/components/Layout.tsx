@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { ThemeToggle } from "./ThemeToggle";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -29,12 +28,11 @@ export function Layout() {
       style={{ fontFamily: "var(--font-body, 'DM Sans', sans-serif)" }}
     >
       <ScrollToTop />
-      <Header />
+      <Header isDark={isDark} onToggleTheme={() => setIsDark((d) => !d)} />
       <main>
         <Outlet />
       </main>
       <Footer />
-      <ThemeToggle isDark={isDark} onToggle={() => setIsDark((d) => !d)} />
     </div>
   );
 }

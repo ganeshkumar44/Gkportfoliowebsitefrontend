@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface NavItem {
   label: string;
@@ -102,7 +103,13 @@ function LangToggle() {
   );
 }
 
-export function Header() {
+export function Header({
+  isDark,
+  onToggleTheme,
+}: {
+  isDark: boolean;
+  onToggleTheme: () => void;
+}) {
   const scrolled = useScrolled();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -130,8 +137,8 @@ export function Header() {
           <span className="text-amber-400">.</span>
         </Link>
 
-        {/* Desktop nav + language toggle grouped on right */}
-        <div className="hidden md:flex items-center gap-8">
+        {/* Desktop nav + language + theme toggle grouped on right */}
+        <div className="hidden md:flex items-center gap-6">
           <nav className="flex items-center gap-8" role="list">
             {NAV_ITEMS.map((item) => (
               <div key={item.label} role="listitem">
@@ -140,17 +147,21 @@ export function Header() {
             ))}
           </nav>
           <LangToggle />
+          <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-foreground p-1.5 rounded-md hover:bg-secondary transition-colors"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-        >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        {/* Mobile: theme toggle + hamburger */}
+        <div className="md:hidden flex items-center gap-2">
+          <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-foreground p-1.5 rounded-md hover:bg-secondary transition-colors"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile drawer */}
